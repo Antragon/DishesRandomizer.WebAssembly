@@ -1,0 +1,1 @@
+# DishesRandomizer.WebAssembly
