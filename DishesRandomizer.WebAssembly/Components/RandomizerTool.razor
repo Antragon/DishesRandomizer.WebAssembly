@@ -1,0 +1,65 @@
+﻿<div class="tool-window">
+    <RadzenCard>
+        <h1>Planned Dishes</h1>
+    </RadzenCard>
+    <RadzenCard>
+        <div class="flex">
+            <RadzenCheckBox class="flex-fixed-child-25 margin-10" TValue="bool?" @bind-value="@_randomizeAll" />
+            <img class="flex-fixed-child-40 margin-10" src="images/dice_black.png" alt="dice_black.png" />
+            <div class="flex-child-1"></div>
+            <img class="flex-fixed-child-40" src="images/edit-list.png" alt="edit-list.png" />
+            <div class="flex-fixed-child-25"></div>
+        </div>
+    </RadzenCard>
+    @foreach (var day in _days) {
+        <RadzenCard>
+            <div class="flex">
+                <RadzenCheckBox class="flex-fixed-child-25 margin-10" TValue="bool" @bind-value="@_toRandomize[day]" />
+                <img class="flex-fixed-child-40 margin-10" src="images/dice_black.png" alt="dice_black.png" />
+                <h3 class="flex-child-2 margin-10">@($"{day}:")</h3>
+                <RadzenDropDown class="flex-child-3 dropdown margin-10"
+                                TValue="Dish"
+                                Value=@_dishes.FirstOrDefault(d => d == _plannedDishes[day])
+                                Data=@_dishes
+                                Placeholder="Select..."
+                                AllowFiltering="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                AllowClear="true" />
+            </div>
+        </RadzenCard>
+    }
+</div>
+
+@code {
+
+    private bool? _randomizeAll;
+
+    private Day[] _days = Enum.GetValues<Day>();
+
+    private Dictionary<Day, bool> _toRandomize = new() {
+        [Day.Monday] = true,
+        [Day.Tuesday] = true,
+        [Day.Wednesday] = true,
+        [Day.Thursday] = true,
+        [Day.Friday] = true,
+        [Day.Saturday] = false,
+        [Day.Sunday] = false,
+    };
+
+    private Dictionary<Day, Dish> _plannedDishes = new() {
+        [Day.Monday] = SomeDish.Pizza,
+        [Day.Tuesday] = SomeDish.Pizza,
+        [Day.Wednesday] = SomeDish.Pizza,
+        [Day.Thursday] = SomeDish.Pizza,
+        [Day.Friday] = SomeDish.Pizza,
+        [Day.Saturday] = SomeDish.Pizza,
+        [Day.Sunday] = SomeDish.Pizza,
+    };
+
+    private List<Dish> _dishes = new() {
+        SomeDish.Burger,
+        SomeDish.MashedPotatoes,
+        SomeDish.Pizza,
+    };
+
+}
