@@ -4,8 +4,15 @@
     </RadzenCard>
     <RadzenCard>
         <div class="flex">
-            <RadzenCheckBox class="flex-fixed-child-25 margin-10" TValue="bool?" @bind-value="@_randomizeAll" />
-            <img class="flex-fixed-child-40 margin-10" src="images/dice_black.png" alt="dice_black.png" />
+            <RadzenCheckBox class="flex-fixed-child-25 margin-10"
+                            TValue="bool?"
+                            @bind-value="@_randomizeAll"
+                            Change="UpdateAllCheckboxes" />
+            <img class="flex-fixed-child-40 margin-10 clickable"
+                 src="images/dice_black.png"
+                 alt="dice_black.png"
+                 @onclick="ShuffleAll"
+                 style="transform: rotate(@(_fullWeekDice.Rotation)deg);" />
             <div class="flex-child-1"></div>
             <img class="flex-fixed-child-40" src="images/edit-list.png" alt="edit-list.png" />
             <div class="flex-fixed-child-25"></div>
@@ -14,8 +21,15 @@
     @foreach (var day in _days) {
         <RadzenCard>
             <div class="flex">
-                <RadzenCheckBox class="flex-fixed-child-25 margin-10" TValue="bool" @bind-value="@_toRandomize[day]" />
-                <img class="flex-fixed-child-40 margin-10" src="images/dice_black.png" alt="dice_black.png" />
+                <RadzenCheckBox class="flex-fixed-child-25 margin-10"
+                                TValue="bool"
+                                @bind-value="@_toRandomize[day]"
+                                Change="@UpdateCheckbox" />
+                <img class="flex-fixed-child-40 margin-10 clickable"
+                     src="images/dice_black.png"
+                     alt="dice_black.png"
+                     @onclick="_ => ShuffleDay(day)"
+                     style="transform: rotate(@(_dice[day].Rotation)deg);" />
                 <h3 class="flex-child-2 margin-10">@($"{day}:")</h3>
                 <RadzenDropDown class="flex-child-3 dropdown margin-10"
                                 TValue="Dish"
@@ -30,10 +44,14 @@
     }
 </div>
 
+
 @code {
 
-    private bool? _randomizeAll;
+        private const int _tickInterval = 20;
+        private const int _shuffleDuration = 300;
 
+    private readonly Dice _fullWeekDice = new();
+    private bool? _randomizeAll;
     private Day[] _days = Enum.GetValues<Day>();
 
     private Dictionary<Day, bool> _toRandomize = new() {
@@ -44,6 +62,16 @@
         [Day.Friday] = true,
         [Day.Saturday] = false,
         [Day.Sunday] = false,
+    };
+
+    private Dictionary<Day, Dice> _dice = new() {
+        [Day.Monday] = new Dice(),
+        [Day.Tuesday] = new Dice(),
+        [Day.Wednesday] = new Dice(),
+        [Day.Thursday] = new Dice(),
+        [Day.Friday] = new Dice(),
+        [Day.Saturday] = new Dice(),
+        [Day.Sunday] = new Dice(),
     };
 
     private Dictionary<Day, Dish> _plannedDishes = new() {
@@ -61,5 +89,62 @@
         SomeDish.MashedPotatoes,
         SomeDish.Pizza,
     };
+
+    private void UpdateAllCheckboxes(bool? randomizeAll) {
+        if (randomizeAll is not  { } value) {
+            return;
+        }
+        _days.ForEach(d => _toRandomize[d] = value);
+    }
+
+    private void UpdateCheckbox() {
+        if (_toRandomize.All(r => r.Value)) {
+            _randomizeAll = true;
+        } else if (_toRandomize.All(r => !r.Value)) {
+            _randomizeAll = false;
+        } else {
+            _randomizeAll = null;
+        }
+    }
+
+    private void ShuffleAll() {
+        var toShuffle = _toRandomize.Where(r => r.Value).Select(r => r.Key).ToArray();
+        StartShuffleTimer(true, toShuffle);
+    }
+
+    private void ShuffleDay(Day day) {
+        StartShuffleTimer(false, day);
+    }
+
+    private void StartShuffleTimer(bool shuffleFullWeekDice, params Day[] days) {
+        var dice = days.Select(d => _dice[d]).ToList();
+        if (shuffleFullWeekDice) {
+            dice.Add(_fullWeekDice);
+        }
+        var animationTimer = new Timer(_tickInterval);
+        var shuffleTimer = new Timer(_shuffleDuration);
+        animationTimer.Elapsed += (_, _) => Shuffle(dice);
+        shuffleTimer.Elapsed += (_, _) => animationTimer.Dispose();
+        shuffleTimer.Elapsed += (_, _) => Reset(dice);
+        shuffleTimer.Elapsed += (_, _) => Shuffle(days);
+        shuffleTimer.Elapsed += (_, _) => shuffleTimer.Dispose();
+        animationTimer.Start();
+        shuffleTimer.Start();
+    }
+
+    private void Shuffle(Day[] days) {
+    // dice.ForEach(d => d.RotateRandomly());
+    // StateHasChanged();
+    }
+
+    private void Shuffle(IEnumerable<Dice> dice) {
+        dice.ForEach(d => d.RotateRandomly());
+        StateHasChanged();
+    }
+
+    private void Reset(IEnumerable<Dice> dice) {
+        dice.ForEach(d => d.Reset());
+        StateHasChanged();
+    }
 
 }

@@ -43,6 +43,14 @@
     font-size: large;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    filter: invert(25%);
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
