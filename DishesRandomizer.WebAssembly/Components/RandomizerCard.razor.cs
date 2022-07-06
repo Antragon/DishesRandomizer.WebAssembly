@@ -22,7 +22,7 @@ public partial class RandomizerCard {
         _dice.OnRotationChanged.Subscribe(_ => StateHasChanged());
     }
 
-    public void Shuffle() {
-        _dice.Shuffle();
+    public async void Shuffle() {
+        await _dice.Shuffle();
     }
 }

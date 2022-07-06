@@ -11,6 +11,8 @@ public class Dice {
 
     public IObservable<int> OnRotationChanged => _onRotationChanged.AsObservable();
 
+    public bool Clickable { get; private set; } = true;
+
     public int Rotation {
         get => _rotation;
         private set => SetRotation(value);
@@ -21,16 +23,20 @@ public class Dice {
         _onRotationChanged.OnNext(value);
     }
 
-    public async void Shuffle() {
-        using var timer = new Timer(300);
-        var running = true;
-        timer.Elapsed += (_, _) => running = false;
-        timer.Start();
-        while (running) {
-            Rotation = new Random().Next(0, 361);
-            await Task.Delay(20);
+    public async Task Shuffle() {
+        try {
+            Clickable = false;
+            using var timer = new Timer(300);
+            var running = true;
+            timer.Elapsed += (_, _) => running = false;
+            timer.Start();
+            while (running) {
+                Rotation = new Random().Next(0, 361);
+                await Task.Delay(20);
+            }
+        } finally {
+            Clickable = true;
+            Rotation = 0;
         }
-
-        Rotation = 0;
     }
 }

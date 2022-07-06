@@ -4,7 +4,7 @@
                         TValue="bool"
                         @bind-Value="@Randomize"
                         Change="_randomizeSubject.OnNext" />
-        <img class="flex-fixed-child-40 margin-10 clickable"
+        <img class="flex-fixed-child-40 margin-10 @(_dice.Clickable ? "clickable" : "not-clickable")"
              src="images/dice_black.png"
              alt="dice_black.png"
              @onclick="Shuffle"

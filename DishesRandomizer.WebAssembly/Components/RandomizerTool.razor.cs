@@ -6,7 +6,7 @@ using MoreLinq;
 public partial class RandomizerTool {
     private readonly Dice _dice = new();
     private readonly IList<RandomizerCard> _cards = new List<RandomizerCard>();
-    
+
     private bool? _randomize = true;
 
     private RandomizerCard CardRef {
@@ -16,7 +16,6 @@ public partial class RandomizerTool {
             value.RandomizeChanged.Subscribe(_ => OnCheckboxUpdated());
         }
     }
-
 
     protected override void OnInitialized() {
         _dice.OnRotationChanged.Subscribe(_ => StateHasChanged());
@@ -38,11 +37,12 @@ public partial class RandomizerTool {
         } else {
             _randomize = null;
         }
+
         StateHasChanged();
     }
 
     private void ShuffleAll() {
-        _dice.Shuffle();
+        _ = _dice.Shuffle();
         _cards.Where(c => c.Randomize).ForEach(c => c.Shuffle());
     }
 }
