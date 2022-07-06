@@ -1,5 +1,7 @@
 ﻿namespace DishesRandomizer.WebAssembly.Components;
 
+using Common;
+using Microsoft.AspNetCore.Components;
 using Models;
 using MoreLinq;
 
@@ -8,6 +10,8 @@ public partial class RandomizerTool {
     private readonly IList<RandomizerCard> _cards = new List<RandomizerCard>();
 
     private bool? _randomize = true;
+
+    [Inject] private PlannedDishes PlannedDishes { get; set; } = default!;
 
     private RandomizerCard CardRef {
         set {
@@ -42,7 +46,9 @@ public partial class RandomizerTool {
     }
 
     private void ShuffleAll() {
-        _ = _dice.Shuffle();
-        _cards.Where(c => c.Randomize).ForEach(c => c.Shuffle());
+        var cards = _cards.Where(c => c.Randomize).ToList();
+        PlannedDishes.Shuffle(cards.Select(c => c.Day).ToArray());
+        _dice.Shuffle();
+        cards.Select(c => c.Dice).ForEach(d => d.Shuffle());
     }
 }

@@ -8,21 +8,32 @@ using Models;
 
 public partial class RandomizerCard {
     private readonly Subject<bool> _randomizeSubject = new();
-    private readonly Dice _dice = new();
 
-    [Inject] private PlannedDishes PlannedDishes { get; set; } = new();
-    [Inject] private Dishes Dishes { get; set; } = new();
+    [Inject] private PlannedDishes PlannedDishes { get; set; } = default!;
+    [Inject] private Dishes Dishes { get; set; } = default!;
+
+    private Dish? PlannedDish => PlannedDishes.TryGetValue(Day, out var dish) ? dish : null;
 
     [Parameter] public Day Day { get; set; }
 
+    public Dice Dice { get; } = new();
     public bool Randomize { get; set; } = true;
     public IObservable<bool> RandomizeChanged => _randomizeSubject.AsObservable();
 
     protected override void OnInitialized() {
-        _dice.OnRotationChanged.Subscribe(_ => StateHasChanged());
+        Dice.OnRotationChanged.Subscribe(_ => StateHasChanged());
     }
 
-    public async void Shuffle() {
-        await _dice.Shuffle();
+    private void UpdatePlannedDish(Dish? dish) {
+        if (dish == null) {
+            PlannedDishes.Remove(Day);
+        } else {
+            PlannedDishes[Day] = dish;
+        }
+    }
+
+    private void Shuffle() {
+        PlannedDishes.Shuffle(Day);
+        Dice.Shuffle();
     }
 }

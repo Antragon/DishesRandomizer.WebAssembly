@@ -23,7 +23,7 @@ public class Dice {
         _onRotationChanged.OnNext(value);
     }
 
-    public async Task Shuffle() {
+    public async void Shuffle() {
         try {
             Clickable = false;
             using var timer = new Timer(300);
