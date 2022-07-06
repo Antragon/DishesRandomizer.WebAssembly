@@ -1,4 +1,4 @@
-﻿namespace DishesRandomizer.WebAssembly.Models;
+﻿namespace DishesRandomizer.Common;
 
 public static class SomeDish {
     public static Dish Pizza { get; } = new(Guid.NewGuid(), "Pizza");

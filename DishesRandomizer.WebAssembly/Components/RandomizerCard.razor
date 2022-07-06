@@ -1,0 +1,22 @@
+﻿<RadzenCard>
+    <div class="flex">
+        <RadzenCheckBox class="flex-fixed-child-25 margin-10"
+                        TValue="bool"
+                        @bind-Value="@Randomize"
+                        Change="_randomizeSubject.OnNext" />
+        <img class="flex-fixed-child-40 margin-10 clickable"
+             src="images/dice_black.png"
+             alt="dice_black.png"
+             @onclick="Shuffle"
+             style="transform: rotate(@(_dice.Rotation)deg);" />
+        <h3 class="flex-child-2 margin-10">@($"{Day}:")</h3>
+        <RadzenDropDown class="flex-child-3 dropdown margin-10"
+                        TValue="Dish"
+                        Value="PlannedDishes[Day]"
+                        Data="Dishes"
+                        Placeholder="Select..."
+                        AllowFiltering="true"
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        AllowClear="true" />
+    </div>
+</RadzenCard>

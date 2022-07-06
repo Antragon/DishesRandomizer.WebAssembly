@@ -10,9 +10,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all" />
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="Radzen.Blazor" Version="3.19.1" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DishesRandomizer.Common\DishesRandomizer.Common.csproj" />
+    <ProjectReference Include="..\DishesRandomizer\DishesRandomizer.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\images" />
