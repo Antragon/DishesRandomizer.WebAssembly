@@ -9,10 +9,9 @@ using Models;
 public partial class RandomizerCard {
     private readonly Subject<bool> _randomizeSubject = new();
 
-    [Inject] private PlannedDishes PlannedDishes { get; set; } = default!;
-    [Inject] private Dishes Dishes { get; set; } = default!;
+    [CascadingParameter] private CookbookController CookbookController { get; set; } = null!;
 
-    private Dish? PlannedDish => PlannedDishes.TryGetValue(Day, out var dish) ? dish : null;
+    private Dish? PlannedDish => CookbookController.GetPlannedDish(Day);
 
     [Parameter] public Day Day { get; set; }
 
@@ -26,14 +25,14 @@ public partial class RandomizerCard {
 
     private void UpdatePlannedDish(Dish? dish) {
         if (dish == null) {
-            PlannedDishes.Remove(Day);
+            CookbookController.DeletePlannedDish(Day);
         } else {
-            PlannedDishes[Day] = dish;
+            CookbookController.SetPlannedDish(Day, dish);
         }
     }
 
     private void Shuffle() {
-        PlannedDishes.Shuffle(Day);
+        CookbookController.ShufflePlannedDishes(Day);
         Dice.Shuffle();
     }
 }

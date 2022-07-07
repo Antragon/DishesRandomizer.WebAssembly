@@ -13,7 +13,7 @@
         <RadzenDropDown class="flex-child-3 dropdown margin-10"
                         TValue="Dish"
                         Value="@PlannedDish"
-                        Data="Dishes"
+                        Data="@CookbookController.GetDishes()"
                         Placeholder="Select..."
                         AllowFiltering="true"
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"

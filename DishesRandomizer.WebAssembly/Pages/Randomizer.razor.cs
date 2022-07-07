@@ -1,17 +1,17 @@
-﻿namespace DishesRandomizer.WebAssembly.Components;
+﻿namespace DishesRandomizer.WebAssembly.Pages;
 
-using Common;
+using Components;
 using Microsoft.AspNetCore.Components;
 using Models;
 using MoreLinq;
 
-public partial class RandomizerTool {
+public partial class Randomizer {
     private readonly Dice _dice = new();
     private readonly IList<RandomizerCard> _cards = new List<RandomizerCard>();
 
     private bool? _randomize = true;
 
-    [Inject] private PlannedDishes PlannedDishes { get; set; } = default!;
+    [CascadingParameter] private CookbookController CookbookController { get; set; } = null!;
 
     private RandomizerCard CardRef {
         set {
@@ -47,7 +47,7 @@ public partial class RandomizerTool {
 
     private void ShuffleAll() {
         var cards = _cards.Where(c => c.Randomize).ToList();
-        PlannedDishes.Shuffle(cards.Select(c => c.Day).ToArray());
+        CookbookController.ShufflePlannedDishes(cards.Select(c => c.Day).ToArray());
         _dice.Shuffle();
         cards.Select(c => c.Dice).ForEach(d => d.Shuffle());
     }

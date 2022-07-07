@@ -1,6 +1,5 @@
-using DishesRandomizer.Common;
+using Blazored.LocalStorage;
 using DishesRandomizer.WebAssembly;
-using DishesRandomizer.WebAssembly.Startup;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -10,7 +9,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services
     .AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) })
-    .AddScoped(_ => Dishes.Default)
-    .AddPlannedDishes();
+    .AddScoped<CookbookProvider>()
+    .AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();

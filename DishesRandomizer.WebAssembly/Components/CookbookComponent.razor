@@ -1,0 +1,7 @@
+﻿@if (_cookbookController == null) {
+    <p>Loading...</p>
+} else {
+    <CascadingValue Value="_cookbookController">
+        @ChildContent
+    </CascadingValue>
+}
