@@ -1,6 +1,6 @@
 ﻿@page "/Dishes"
 <RadzenCard class="dialog">
-    <h2>Dishes</h2>
+    <h2>Meals</h2>
     <img class="meals-card__button clickable"
          src="images/plus.png"
          alt="plus.png"
@@ -11,7 +11,7 @@
                 <RadzenTextBox class="meals-card__meal"
                                @ref="TextBoxRef"
                                Value="@dish.Name"
-                               Placeholder="<Name your dish>"
+                               Placeholder="<Name your Meal>"
                                Change="name => DishChanged(dish.Id, name)" />
                 <img class="meals-card__button clickable"
                      src="images/minus.png"

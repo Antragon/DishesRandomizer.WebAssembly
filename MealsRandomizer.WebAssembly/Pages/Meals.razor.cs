@@ -1,11 +1,10 @@
-﻿namespace DishesRandomizer.WebAssembly.Pages;
+﻿namespace MealsRandomizer.WebAssembly.Pages;
 
-using Common;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using Radzen.Blazor;
 
-public partial class Dishes {
+public partial class Meals {
     private readonly List<Dish> _dishesSelection = new();
     private readonly List<RadzenTextBox> _textBoxes = new();
     private readonly int _pageSize = 7;
@@ -21,12 +20,12 @@ public partial class Dishes {
 
     protected override void OnInitialized() {
         SetDishesSelection(0, _pageSize);
-        _count = CookbookController.GetDishes().Count();
+        _count = CookbookController.GetMeals().Count();
     }
 
     private async Task AddDish() {
         var dish = new Dish(Guid.NewGuid(), string.Empty);
-        CookbookController.AddDish(dish);
+        CookbookController.AddMeal(dish);
         _dishesSelection.Insert(0, dish);
         if (_dishesSelection.Count > _pageSize) {
             _dishesSelection.RemoveAt(_pageSize);
@@ -44,14 +43,14 @@ public partial class Dishes {
     }
 
     private Task DeleteDish(Dish dish) {
-        CookbookController.DeleteDish(dish.Id);
+        CookbookController.DeleteMeal(dish.Id);
         _dishesSelection.Remove(dish);
         _count--;
         return _pager?.GoToPage(_pager.CurrentPage, true) ?? Task.CompletedTask;
     }
 
     private void DishChanged(Guid id, string name) {
-        CookbookController.SetDishName(id, name);
+        CookbookController.SetMealName(id, name);
     }
 
     private void PageChanged(PagerEventArgs args) {
@@ -61,7 +60,7 @@ public partial class Dishes {
     }
 
     private void SetDishesSelection(int skip, int take) {
-        var dishes = CookbookController.GetDishes().OrderBy(dish => dish);
+        var dishes = CookbookController.GetMeals().OrderBy(dish => dish);
         _dishesSelection.Clear();
         _dishesSelection.AddRange(dishes.Skip(skip).Take(take));
     }

@@ -1,4 +1,4 @@
-﻿namespace DishesRandomizer.Common; 
+﻿namespace MealsRandomizer; 
 
 public enum Day {
     Monday,

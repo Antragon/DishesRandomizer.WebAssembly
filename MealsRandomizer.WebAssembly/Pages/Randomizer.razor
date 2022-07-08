@@ -1,7 +1,7 @@
 ﻿@page "/randomizer"
 
 <RadzenCard class="randomizer">
-    <h2>Planned Dishes</h2>
+    <h2>Planned Meals</h2>
     <div class="randomizer-card">
         <RadzenCheckBox class="randomizer__checkbox"
                         TValue="bool?"
@@ -28,7 +28,7 @@
     </div>
     @if (_displayDishes) {
         <div class="modal">
-            <Dishes />
+            <Meals />
             <RadzenCard class="dialog">
                 <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="CloseDishes" />
             </RadzenCard>

@@ -13,7 +13,7 @@
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DishesRandomizer\DishesRandomizer.csproj" />
+    <ProjectReference Include="..\MealsRandomizer\MealsRandomizer.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\images" />

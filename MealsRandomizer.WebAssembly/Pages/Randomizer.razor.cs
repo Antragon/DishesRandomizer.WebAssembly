@@ -1,4 +1,4 @@
-﻿namespace DishesRandomizer.WebAssembly.Pages;
+﻿namespace MealsRandomizer.WebAssembly.Pages;
 
 using Components;
 using Microsoft.AspNetCore.Components;
@@ -52,7 +52,7 @@ public partial class Randomizer {
 
     private void ShuffleAll() {
         var cards = _cards.Where(c => c.Randomize).ToList();
-        CookbookController.ShufflePlannedDishes(cards.Select(c => c.Day).ToArray());
+        CookbookController.ShufflePlannedMeals(cards.Select(c => c.Day).ToArray());
         _dice.Shuffle();
         cards.Select(c => c.Dice).ForEach(d => d.Shuffle());
     }

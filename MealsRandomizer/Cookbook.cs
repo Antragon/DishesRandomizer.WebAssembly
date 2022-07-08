@@ -1,4 +1,4 @@
-﻿namespace DishesRandomizer.Common;
+﻿namespace MealsRandomizer;
 
 using System.Text.Json.Serialization;
 

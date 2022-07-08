@@ -1,6 +1,5 @@
-﻿namespace DishesRandomizer.WebAssembly.Components;
+﻿namespace MealsRandomizer.WebAssembly.Components;
 
-using Common;
 using Microsoft.AspNetCore.Components;
 
 public partial class CookbookComponent {

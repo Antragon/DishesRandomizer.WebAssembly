@@ -1,8 +1,7 @@
-﻿namespace DishesRandomizer.WebAssembly;
+﻿namespace MealsRandomizer.WebAssembly;
 
 using System.Text.Json;
 using Blazored.LocalStorage;
-using Common;
 
 public class CookbookProvider {
     private const string _storageKey = "cookbook";

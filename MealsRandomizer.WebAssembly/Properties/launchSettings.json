@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "DishesRandomizer.WebAssembly": {
+    "MealsRandomizer.WebAssembly": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",

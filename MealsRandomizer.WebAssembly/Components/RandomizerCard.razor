@@ -11,11 +11,11 @@
     <h3 class="randomizer-card__weekday">@($"{Day}:")</h3>
     <RadzenDropDown class="randomizer-card__meal-selection"
                     TValue="Dish"
-                    Value="@PlannedDish"
-                    Data="@CookbookController.GetDishes()"
+                    Value="@PlannedMeal"
+                    Data="@CookbookController.GetMeals()"
                     Placeholder="Select..."
                     AllowFiltering="true"
                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                     AllowClear="true"
-                    ValueChanged="@(UpdatePlannedDish)" />
+                    ValueChanged="@(UpdatePlannedMeal)" />
 </div>

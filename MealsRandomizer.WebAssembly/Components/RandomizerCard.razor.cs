@@ -1,8 +1,7 @@
-﻿namespace DishesRandomizer.WebAssembly.Components;
+﻿namespace MealsRandomizer.WebAssembly.Components;
 
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using Common;
 using Microsoft.AspNetCore.Components;
 using Models;
 
@@ -11,7 +10,7 @@ public partial class RandomizerCard {
 
     [CascadingParameter] private CookbookController CookbookController { get; set; } = null!;
 
-    private Dish? PlannedDish => CookbookController.GetPlannedDish(Day);
+    private Dish? PlannedMeal => CookbookController.GetPlannedMeal(Day);
 
     [Parameter] public Day Day { get; set; }
 
@@ -23,16 +22,16 @@ public partial class RandomizerCard {
         Dice.OnRotationChanged.Subscribe(_ => StateHasChanged());
     }
 
-    private void UpdatePlannedDish(Dish? dish) {
-        if (dish == null) {
-            CookbookController.DeletePlannedDish(Day);
+    private void UpdatePlannedMeal(Dish? meal) {
+        if (meal == null) {
+            CookbookController.DeletePlannedMeal(Day);
         } else {
-            CookbookController.SetPlannedDish(Day, dish.Id);
+            CookbookController.SetPlannedMeal(Day, meal.Id);
         }
     }
 
     private void Shuffle() {
-        CookbookController.ShufflePlannedDishes(Day);
+        CookbookController.ShufflePlannedMeals(Day);
         Dice.Shuffle();
     }
 }

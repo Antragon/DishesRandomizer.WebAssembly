@@ -1,5 +1,5 @@
 using Blazored.LocalStorage;
-using DishesRandomizer.WebAssembly;
+using MealsRandomizer.WebAssembly;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Radzen;

@@ -1,4 +1,4 @@
-﻿namespace DishesRandomizer.WebAssembly.Models;
+﻿namespace MealsRandomizer.WebAssembly.Models;
 
 using System.Reactive.Linq;
 using System.Reactive.Subjects;

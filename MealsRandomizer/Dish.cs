@@ -1,4 +1,4 @@
-﻿namespace DishesRandomizer.Common;
+﻿namespace MealsRandomizer;
 
 public record Dish(Guid Id, string Name) : IComparable<Dish> {
     public string Name { get; set; } = Name;
