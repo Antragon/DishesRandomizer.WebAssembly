@@ -4,12 +4,17 @@ using Components;
 using Microsoft.AspNetCore.Components;
 using Models;
 using MoreLinq;
+using Radzen;
 
 public partial class Randomizer {
     private readonly Dice _dice = new();
     private readonly IList<RandomizerCard> _cards = new List<RandomizerCard>();
 
     private bool? _randomize = true;
+
+    private bool _displayDishes;
+
+    [Inject] private DialogService DialogService { get; set; } = null!;
 
     [CascadingParameter] private CookbookController CookbookController { get; set; } = null!;
 
@@ -51,4 +56,24 @@ public partial class Randomizer {
         _dice.Shuffle();
         cards.Select(c => c.Dice).ForEach(d => d.Shuffle());
     }
+
+    private void OpenDishes() {
+        _displayDishes = true;
+        StateHasChanged();
+    }
+
+    private void CloseDishes() {
+        _displayDishes = false;
+        StateHasChanged();
+    }
+
+    // private Task OpenDishes() {
+    //     var dialogOptions = new DialogOptions {
+    //         Style = "tool-window",
+    //         // Width = "400px",
+    //         // Top = "50px",
+    //         ShowTitle = false
+    //     };
+    //     return DialogService.OpenAsync<Dishes>(string.Empty, options: dialogOptions);
+    // }
 }

@@ -27,7 +27,7 @@ public partial class RandomizerCard {
         if (dish == null) {
             CookbookController.DeletePlannedDish(Day);
         } else {
-            CookbookController.SetPlannedDish(Day, dish);
+            CookbookController.SetPlannedDish(Day, dish.Id);
         }
     }
 

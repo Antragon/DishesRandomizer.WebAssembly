@@ -1,0 +1,22 @@
+﻿@page "/Dishes"
+<RadzenCard class="tool-window-450">
+    <h2>Dishes</h2>
+    <img class="flex-fixed-child-40 margin-10 clickable"
+         src="images/plus.png"
+         alt="plus.png"
+         @onclick="AddDish" />
+    @foreach (var dish in _dishesSelection) {
+        <div class="flex">
+            <RadzenTextBox class="flex-child-1"
+                           @ref="TextBoxRef"
+                           Value="@dish.Name"
+                           Placeholder="<Name your dish>"
+                           Change="name => DishChanged(dish.Id, name)" />
+            <img class="flex-fixed-child-40 margin-10 clickable"
+                 src="images/minus.png"
+                 alt="minus.png"
+                 @onclick="() => DeleteDish(dish)" />
+        </div>
+    }
+    <RadzenPager @ref="_pager" Count="_count" PageSize="_pageSize" PageNumbersCount="5" PageChanged="PageChanged" />
+</RadzenCard>

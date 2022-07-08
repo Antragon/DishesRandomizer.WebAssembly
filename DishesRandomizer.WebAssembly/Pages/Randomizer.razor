@@ -16,7 +16,10 @@
                  @onclick="ShuffleAll"
                  style="transform: rotate(@(_dice.Rotation)deg);" />
             <div class="flex-child-1"></div>
-            <img class="flex-fixed-child-40" src="images/edit-list.png" alt="edit-list.png" />
+            <img class="flex-fixed-child-40 clickable"
+                 src="images/edit-list.png"
+                 alt="edit-list.png"
+                 @onclick="OpenDishes" />
             <div class="flex-fixed-child-25"></div>
         </div>
     </RadzenCard>
@@ -24,5 +27,15 @@
         <RandomizerCard
             @ref="CardRef"
             Day="day" />
+    }
+    @if (_displayDishes) {
+        <div class="modal">
+            <Dishes />
+            <div class="tool-window-450">
+                <RadzenCard>
+                    <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="CloseDishes" />
+                </RadzenCard>
+            </div>
+        </div>
     }
 </div>

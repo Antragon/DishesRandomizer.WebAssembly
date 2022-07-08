@@ -5,19 +5,25 @@ using System.Text.Json.Serialization;
 [Serializable]
 public class Cookbook {
     [JsonConstructor]
-    public Cookbook(HashSet<Dish> dishes, Dictionary<Day, Dish> plannedDishes) {
+    public Cookbook(Dictionary<Guid, Dish> dishes, Dictionary<Day, Guid> plannedDishes) {
         Dishes = dishes;
         PlannedDishes = plannedDishes;
     }
 
-    public HashSet<Dish> Dishes { get; }
-    public Dictionary<Day, Dish> PlannedDishes { get; }
+    public Dictionary<Guid, Dish> Dishes { get; }
+    public Dictionary<Day, Guid> PlannedDishes { get; }
 
-    public static Cookbook Default { get; } = new(new HashSet<Dish>(), new Dictionary<Day, Dish>()) {
+    public static Cookbook Default { get; } = new(new Dictionary<Guid, Dish>(), new Dictionary<Day, Guid>()) {
         Dishes = {
-            new Dish(Guid.Parse("00000000-0000-0000-0000-000000000001"), "Burger"),
-            new Dish(Guid.Parse("00000000-0000-0000-0000-000000000002"), "Pizza"),
-            new Dish(Guid.Parse("00000000-0000-0000-0000-000000000003"), "Mashed Potatoes"),
+            [Convert(1)] = new Dish(Convert(1), "Burger"),
+            [Convert(2)] = new Dish(Convert(2), "Pizza"),
+            [Convert(3)] = new Dish(Convert(3), "Mashed Potatoes"),
         }
     };
+
+    private static Guid Convert(int number) {
+        var bytes = new byte[16];
+        BitConverter.GetBytes(number).CopyTo(bytes, 0);
+        return new Guid(bytes);
+    }
 }

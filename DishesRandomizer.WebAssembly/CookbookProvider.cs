@@ -1,5 +1,6 @@
 ﻿namespace DishesRandomizer.WebAssembly;
 
+using System.Text.Json;
 using Blazored.LocalStorage;
 using Common;
 
@@ -24,9 +25,14 @@ public class CookbookProvider {
     }
 
     private async Task InitializeCookbookController() {
-        var storedCookbook = await _localStorageService.GetItemAsync<Cookbook?>(_storageKey);
-        var cookbook = storedCookbook ?? Cookbook.Default;
-        _cookbookController = new CookbookController(cookbook);
+        Cookbook? cookbook = null;
+        try {
+            cookbook = await _localStorageService.GetItemAsync<Cookbook?>(_storageKey);
+        } catch (JsonException) {
+            Console.WriteLine("Downwards compatibility issue. Creating new cookbook.");
+        }
+
+        _cookbookController = new CookbookController(cookbook ?? Cookbook.Default);
         _cookbookController.CookbookChanged.Subscribe(Save);
     }
 
