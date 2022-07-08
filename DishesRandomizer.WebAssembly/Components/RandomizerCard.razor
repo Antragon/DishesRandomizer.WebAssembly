@@ -1,23 +1,21 @@
-﻿<RadzenCard>
-    <div class="flex">
-        <RadzenCheckBox class="flex-fixed-child-25 margin-10"
-                        TValue="bool"
-                        @bind-Value="@Randomize"
-                        Change="_randomizeSubject.OnNext" />
-        <img class="flex-fixed-child-40 margin-10 @(Dice.Clickable ? "clickable" : "not-clickable")"
-             src="images/dice_black.png"
-             alt="dice_black.png"
-             @onclick="Shuffle"
-             style="transform: rotate(@(Dice.Rotation)deg);" />
-        <h3 class="flex-child-2 margin-10">@($"{Day}:")</h3>
-        <RadzenDropDown class="flex-child-3 dropdown margin-10"
-                        TValue="Dish"
-                        Value="@PlannedDish"
-                        Data="@CookbookController.GetDishes()"
-                        Placeholder="Select..."
-                        AllowFiltering="true"
-                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        AllowClear="true"
-                        ValueChanged="@(UpdatePlannedDish)" />
-    </div>
-</RadzenCard>
+﻿<div class="randomizer-card">
+    <RadzenCheckBox class="randomizer__checkbox"
+                    TValue="bool"
+                    @bind-Value="@Randomize"
+                    Change="_randomizeSubject.OnNext" />
+    <img class="randomizer__dice @(Dice.Clickable ? "clickable" : "not-clickable")"
+         src="images/dice_black.png"
+         alt="dice_black.png"
+         @onclick="Shuffle"
+         style="transform: rotate(@(Dice.Rotation)deg);" />
+    <h3 class="randomizer-card__weekday">@($"{Day}:")</h3>
+    <RadzenDropDown class="randomizer-card__meal-selection"
+                    TValue="Dish"
+                    Value="@PlannedDish"
+                    Data="@CookbookController.GetDishes()"
+                    Placeholder="Select..."
+                    AllowFiltering="true"
+                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                    AllowClear="true"
+                    ValueChanged="@(UpdatePlannedDish)" />
+</div>

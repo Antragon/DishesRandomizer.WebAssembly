@@ -1,41 +1,37 @@
 ﻿@page "/randomizer"
 
-<div class="tool-window">
-    <RadzenCard>
-        <h2>Planned Dishes</h2>
-    </RadzenCard>
-    <RadzenCard>
-        <div class="flex">
-            <RadzenCheckBox class="flex-fixed-child-25 margin-10"
-                            TValue="bool?"
-                            @bind-value="@_randomize"
-                            Change="UpdateAllCheckboxes" />
-            <img class="flex-fixed-child-40 margin-10 @(_dice.Clickable ? "clickable" : "not-clickable")"
-                 src="images/dice_black.png"
-                 alt="dice_black.png"
-                 @onclick="ShuffleAll"
-                 style="transform: rotate(@(_dice.Rotation)deg);" />
-            <div class="flex-child-1"></div>
-            <img class="flex-fixed-child-40 clickable"
-                 src="images/edit-list.png"
-                 alt="edit-list.png"
-                 @onclick="OpenDishes" />
-            <div class="flex-fixed-child-25"></div>
-        </div>
-    </RadzenCard>
-    @foreach (var day in Enum.GetValues<Day>()) {
-        <RandomizerCard
-            @ref="CardRef"
-            Day="day" />
-    }
+<RadzenCard class="randomizer">
+    <h2>Planned Dishes</h2>
+    <div class="randomizer-card">
+        <RadzenCheckBox class="randomizer__checkbox"
+                        TValue="bool?"
+                        @bind-value="@_randomize"
+                        Change="UpdateAllCheckboxes" />
+        <img class="randomizer__dice @(_dice.Clickable ? "clickable" : "not-clickable")"
+             src="images/dice_black.png"
+             alt="dice_black.png"
+             @onclick="ShuffleAll"
+             style="transform: rotate(@(_dice.Rotation)deg);" />
+        <div class="flexible-space"></div>
+        <img class="randomizer__meal-button clickable"
+             src="images/edit-list.png"
+             alt="edit-list.png"
+             @onclick="OpenDishes" />
+        <div class="fixed-space"></div>
+    </div>
+    <div class="randomizer__container">
+        @foreach (var day in Enum.GetValues<Day>()) {
+            <RandomizerCard
+                @ref="CardRef"
+                Day="day" />
+        }
+    </div>
     @if (_displayDishes) {
         <div class="modal">
             <Dishes />
-            <div class="tool-window-450">
-                <RadzenCard>
-                    <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="CloseDishes" />
-                </RadzenCard>
-            </div>
+            <RadzenCard class="dialog">
+                <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="CloseDishes" />
+            </RadzenCard>
         </div>
     }
-</div>
+</RadzenCard>

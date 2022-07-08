@@ -8,7 +8,7 @@ using Radzen.Blazor;
 public partial class Dishes {
     private readonly List<Dish> _dishesSelection = new();
     private readonly List<RadzenTextBox> _textBoxes = new();
-    private readonly int _pageSize = 10;
+    private readonly int _pageSize = 7;
 
     private RadzenPager? _pager;
     private int _count;

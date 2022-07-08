@@ -1,22 +1,29 @@
 ﻿@page "/Dishes"
-<RadzenCard class="tool-window-450">
+<RadzenCard class="dialog">
     <h2>Dishes</h2>
-    <img class="flex-fixed-child-40 margin-10 clickable"
+    <img class="meals-card__button clickable"
          src="images/plus.png"
          alt="plus.png"
          @onclick="AddDish" />
-    @foreach (var dish in _dishesSelection) {
-        <div class="flex">
-            <RadzenTextBox class="flex-child-1"
-                           @ref="TextBoxRef"
-                           Value="@dish.Name"
-                           Placeholder="<Name your dish>"
-                           Change="name => DishChanged(dish.Id, name)" />
-            <img class="flex-fixed-child-40 margin-10 clickable"
-                 src="images/minus.png"
-                 alt="minus.png"
-                 @onclick="() => DeleteDish(dish)" />
-        </div>
-    }
-    <RadzenPager @ref="_pager" Count="_count" PageSize="_pageSize" PageNumbersCount="5" PageChanged="PageChanged" />
+    <div class="meals__container">
+        @foreach (var dish in _dishesSelection) {
+            <div class="meals-card">
+                <RadzenTextBox class="meals-card__meal"
+                               @ref="TextBoxRef"
+                               Value="@dish.Name"
+                               Placeholder="<Name your dish>"
+                               Change="name => DishChanged(dish.Id, name)" />
+                <img class="meals-card__button clickable"
+                     src="images/minus.png"
+                     alt="minus.png"
+                     @onclick="() => DeleteDish(dish)" />
+            </div>
+        }
+    </div>
+    <RadzenPager class="meals__pager"
+                 @ref="_pager"
+                 Count="_count"
+                 PageSize="_pageSize"
+                 PageNumbersCount="5"
+                 PageChanged="PageChanged" />
 </RadzenCard>
