@@ -10,7 +10,7 @@ public partial class RandomizerCard {
 
     [CascadingParameter] private CookbookController CookbookController { get; set; } = null!;
 
-    private Dish? PlannedMeal => CookbookController.GetPlannedMeal(Day);
+    private Meal? PlannedMeal => CookbookController.GetPlannedMeal(Day);
 
     [Parameter] public Day Day { get; set; }
 
@@ -22,7 +22,7 @@ public partial class RandomizerCard {
         Dice.OnRotationChanged.Subscribe(_ => StateHasChanged());
     }
 
-    private void UpdatePlannedMeal(Dish? meal) {
+    private void UpdatePlannedMeal(Meal? meal) {
         if (meal == null) {
             CookbookController.DeletePlannedMeal(Day);
         } else {

@@ -5,7 +5,7 @@ using Radzen;
 using Radzen.Blazor;
 
 public partial class Meals {
-    private readonly List<Dish> _dishesSelection = new();
+    private readonly List<Meal> _mealsSelection = new();
     private readonly List<RadzenTextBox> _textBoxes = new();
     private readonly int _pageSize = 7;
 
@@ -19,16 +19,16 @@ public partial class Meals {
     }
 
     protected override void OnInitialized() {
-        SetDishesSelection(0, _pageSize);
+        SetMealsSelection(0, _pageSize);
         _count = CookbookController.GetMeals().Count();
     }
 
-    private async Task AddDish() {
-        var dish = new Dish(Guid.NewGuid(), string.Empty);
-        CookbookController.AddMeal(dish);
-        _dishesSelection.Insert(0, dish);
-        if (_dishesSelection.Count > _pageSize) {
-            _dishesSelection.RemoveAt(_pageSize);
+    private async Task AddMeal() {
+        var meal = new Meal(Guid.NewGuid(), string.Empty);
+        CookbookController.AddMeal(meal);
+        _mealsSelection.Insert(0, meal);
+        if (_mealsSelection.Count > _pageSize) {
+            _mealsSelection.RemoveAt(_pageSize);
         }
 
         _count++;
@@ -42,26 +42,26 @@ public partial class Meals {
         }
     }
 
-    private Task DeleteDish(Dish dish) {
-        CookbookController.DeleteMeal(dish.Id);
-        _dishesSelection.Remove(dish);
+    private Task DeleteMeal(Meal meal) {
+        CookbookController.DeleteMeal(meal.Id);
+        _mealsSelection.Remove(meal);
         _count--;
         return _pager?.GoToPage(_pager.CurrentPage, true) ?? Task.CompletedTask;
     }
 
-    private void DishChanged(Guid id, string name) {
+    private void MealChanged(Guid id, string name) {
         CookbookController.SetMealName(id, name);
     }
 
     private void PageChanged(PagerEventArgs args) {
         var skip = args.Skip;
         var take = args.Top;
-        SetDishesSelection(skip, take);
+        SetMealsSelection(skip, take);
     }
 
-    private void SetDishesSelection(int skip, int take) {
-        var dishes = CookbookController.GetMeals().OrderBy(dish => dish);
-        _dishesSelection.Clear();
-        _dishesSelection.AddRange(dishes.Skip(skip).Take(take));
+    private void SetMealsSelection(int skip, int take) {
+        var meals = CookbookController.GetMeals().OrderBy(meal => meal);
+        _mealsSelection.Clear();
+        _mealsSelection.AddRange(meals.Skip(skip).Take(take));
     }
 }

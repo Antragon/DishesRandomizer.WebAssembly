@@ -10,7 +10,7 @@
          style="transform: rotate(@(Dice.Rotation)deg);" />
     <h3 class="randomizer-card__weekday">@($"{Day}:")</h3>
     <RadzenDropDown class="randomizer-card__meal-selection"
-                    TValue="Dish"
+                    TValue="Meal"
                     Value="@PlannedMeal"
                     Data="@CookbookController.GetMeals()"
                     Placeholder="Select..."

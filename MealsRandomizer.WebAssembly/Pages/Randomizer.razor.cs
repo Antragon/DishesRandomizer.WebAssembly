@@ -13,7 +13,7 @@ public partial class Randomizer {
     private bool? _randomize = true;
 
     private bool _displayMenu;
-    private bool _displayDishes;
+    private bool _displayMeals;
 
     [Inject] private DialogService DialogService { get; set; } = null!;
 

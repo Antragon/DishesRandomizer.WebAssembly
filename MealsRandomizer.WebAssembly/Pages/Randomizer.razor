@@ -26,7 +26,7 @@
         <img class="randomizer__meal-button clickable"
              src="images/edit-list.png"
              alt="edit-list.png"
-             @onclick="() => _displayDishes = true" />
+             @onclick="() => _displayMeals = true" />
         <div class="fixed-space"></div>
     </div>
     <div class="randomizer__container">
@@ -36,11 +36,11 @@
                 Day="day" />
         }
     </div>
-    @if (_displayDishes) {
+    @if (_displayMeals) {
         <div class="overlay">
             <Meals />
             <RadzenCard class="dialog">
-                <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="() => _displayDishes = false" />
+                <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="() => _displayMeals = false" />
             </RadzenCard>
         </div>
     }
