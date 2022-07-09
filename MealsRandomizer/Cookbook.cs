@@ -6,8 +6,8 @@ using System.Text.Json.Serialization;
 public class Cookbook {
     [JsonConstructor]
     public Cookbook(Dictionary<Guid, Dish> dishes, Dictionary<Day, Guid> plannedDishes) {
-        Dishes = dishes;
-        PlannedDishes = plannedDishes;
+        Dishes = dishes ?? throw new ArgumentNullException(nameof(dishes));
+        PlannedDishes = plannedDishes ?? throw new ArgumentNullException(nameof(plannedDishes));
     }
 
     public Dictionary<Guid, Dish> Dishes { get; }
