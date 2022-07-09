@@ -12,6 +12,7 @@ public partial class Randomizer {
 
     private bool? _randomize = true;
 
+    private bool _displayMenu;
     private bool _displayDishes;
 
     [Inject] private DialogService DialogService { get; set; } = null!;
@@ -56,24 +57,4 @@ public partial class Randomizer {
         _dice.Shuffle();
         cards.Select(c => c.Dice).ForEach(d => d.Shuffle());
     }
-
-    private void OpenDishes() {
-        _displayDishes = true;
-        StateHasChanged();
-    }
-
-    private void CloseDishes() {
-        _displayDishes = false;
-        StateHasChanged();
-    }
-
-    // private Task OpenDishes() {
-    //     var dialogOptions = new DialogOptions {
-    //         Style = "tool-window",
-    //         // Width = "400px",
-    //         // Top = "50px",
-    //         ShowTitle = false
-    //     };
-    //     return DialogService.OpenAsync<Dishes>(string.Empty, options: dialogOptions);
-    // }
 }

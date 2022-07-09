@@ -5,61 +5,71 @@ using System.Reactive.Subjects;
 using MoreLinq;
 
 public class CookbookController {
+    private Cookbook _cookbook;
     private readonly Subject<Cookbook> _cookbookSubject = new();
-    private readonly Cookbook _cookbook;
 
     public CookbookController(Cookbook cookbook) {
         _cookbook = cookbook;
     }
 
+    public Cookbook Cookbook {
+        get => _cookbook;
+        set => SetCookbook(value);
+    }
+
+    private void SetCookbook(Cookbook value) {
+        _cookbook = value;
+        _cookbookSubject.OnNext(Cookbook);
+    }
+
     public IObservable<Cookbook> CookbookChanged => _cookbookSubject.AsObservable();
 
     public void AddMeal(Dish meal) {
-        _cookbook.Dishes.Add(meal.Id, meal);
-        _cookbookSubject.OnNext(_cookbook);
+        Cookbook.Dishes.Add(meal.Id, meal);
+        _cookbookSubject.OnNext(Cookbook);
     }
 
     public void SetMealName(Guid id, string name) {
-        _cookbook.Dishes[id].Name = name;
-        _cookbookSubject.OnNext(_cookbook);
+        Cookbook.Dishes[id].Name = name;
+        _cookbookSubject.OnNext(Cookbook);
     }
 
     public void DeleteMeal(Guid id) {
-        _cookbook.Dishes.Remove(id);
-        var days = _cookbook.PlannedDishes.Where(x => x.Value == id).Select(x => x.Key);
-        days.ForEach(day => _cookbook.PlannedDishes.Remove(day));
-        _cookbookSubject.OnNext(_cookbook);
+        Cookbook.Dishes.Remove(id);
+        var days = Cookbook.PlannedDishes.Where(x => x.Value == id).Select(x => x.Key);
+        days.ForEach(day => Cookbook.PlannedDishes.Remove(day));
+        _cookbookSubject.OnNext(Cookbook);
     }
 
     public IEnumerable<Dish> GetMeals() {
-        return _cookbook.Dishes.Values;
+        return Cookbook.Dishes.Values;
     }
 
     public void SetPlannedMeal(Day day, Guid id) {
-        _cookbook.PlannedDishes[day] = id;
-        _cookbookSubject.OnNext(_cookbook);
+        Cookbook.PlannedDishes[day] = id;
+        _cookbookSubject.OnNext(Cookbook);
     }
 
     public void DeletePlannedMeal(Day day) {
-        _cookbook.PlannedDishes.Remove(day);
-        _cookbookSubject.OnNext(_cookbook);
+        Cookbook.PlannedDishes.Remove(day);
+        _cookbookSubject.OnNext(Cookbook);
     }
 
     public Dish? GetPlannedMeal(Day day) {
-        return _cookbook.PlannedDishes.TryGetValue(day, out var id) ? _cookbook.Dishes[id] : null;
+        return Cookbook.PlannedDishes.TryGetValue(day, out var id) ? Cookbook.Dishes[id] : null;
     }
 
     public void ShufflePlannedMeals(params Day[] days) {
         var otherDays = Enum.GetValues<Day>().Except(days).ToList();
         var alreadyPlanned = otherDays.Select(GetPlannedMeal).OfType<Dish>();
-        var unplannedDishes = _cookbook.Dishes.Values.Except(alreadyPlanned).ToList();
+        var unplannedDishes = Cookbook.Dishes.Values.Except(alreadyPlanned).ToList();
         foreach (var day in days) {
-            var dishesSelection = unplannedDishes.Any() ? unplannedDishes : _cookbook.Dishes.Values.ToList();
+            var dishesSelection = unplannedDishes.Any() ? unplannedDishes : Cookbook.Dishes.Values.ToList();
             var selectedDish = dishesSelection.RandomSubset(1).Single();
-            _cookbook.PlannedDishes[day] = selectedDish.Id;
+            Cookbook.PlannedDishes[day] = selectedDish.Id;
             unplannedDishes.Remove(selectedDish);
         }
 
-        _cookbookSubject.OnNext(_cookbook);
+        _cookbookSubject.OnNext(Cookbook);
     }
 }

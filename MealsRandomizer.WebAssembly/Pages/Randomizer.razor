@@ -1,8 +1,18 @@
 ﻿@page "/randomizer"
 
 <RadzenCard class="randomizer">
-    <h2>Planned Meals</h2>
     <div class="randomizer-card">
+        <h2 class="flexible-space">Planned Meals</h2>
+        <img class="menu-button clickable"
+             src="images/menu_black.png"
+             alt="menu_black.png"
+             @onclick="() => _displayMenu = true" />
+    </div>
+    @if (_displayMenu) {
+        <MenuComponent />
+        <div class="overlay" @onclick="() => _displayMenu = false"></div>
+    }
+    <div class="randomizer__head">
         <RadzenCheckBox class="randomizer__checkbox"
                         TValue="bool?"
                         @bind-value="@_randomize"
@@ -16,7 +26,7 @@
         <img class="randomizer__meal-button clickable"
              src="images/edit-list.png"
              alt="edit-list.png"
-             @onclick="OpenDishes" />
+             @onclick="() => _displayDishes = true" />
         <div class="fixed-space"></div>
     </div>
     <div class="randomizer__container">
@@ -27,10 +37,10 @@
         }
     </div>
     @if (_displayDishes) {
-        <div class="modal">
+        <div class="overlay">
             <Meals />
             <RadzenCard class="dialog">
-                <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="CloseDishes" />
+                <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="() => _displayDishes = false" />
             </RadzenCard>
         </div>
     }
