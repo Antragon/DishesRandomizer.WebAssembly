@@ -17,7 +17,7 @@ jobs:
       
       # sets up .Net SDK 6.0
       - name: Setup .Net Core SDK
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v2.1.0
         with:
           dotnet-version: 6.0
           
@@ -26,7 +26,7 @@ jobs:
         run: dotnet publish MealsRandomizer.WebAssembly.csproj -c Release -o release --nologo
         
       - name: Commit wwwroot to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@v4.3.4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
