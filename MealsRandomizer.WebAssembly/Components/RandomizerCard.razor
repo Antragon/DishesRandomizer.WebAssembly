@@ -1,13 +1,9 @@
-﻿<div class="randomizer-card">
+﻿<div class="page__card">
     <RadzenCheckBox class="randomizer__checkbox"
                     TValue="bool"
                     @bind-Value="@Randomize"
                     Change="_randomizeSubject.OnNext" />
-    <img class="randomizer__dice @(Dice.Clickable ? "clickable" : "not-clickable")"
-         src="images/dice_black.png"
-         alt="dice_black.png"
-         @onclick="Shuffle"
-         style="transform: rotate(@(Dice.Rotation)deg);" />
+    <DiceComponent Dice="Dice" Click="Shuffle" />
     <h3 class="randomizer-card__weekday">@($"{Day}:")</h3>
     <RadzenDropDown class="randomizer-card__meal-selection"
                     TValue="Meal"

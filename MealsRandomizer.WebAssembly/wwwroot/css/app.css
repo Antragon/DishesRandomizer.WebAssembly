@@ -6,6 +6,49 @@
     flex: 0 0 25px;
 }
 
+.icon-button {
+    flex: 0 0 40px;
+    height: 40px;
+}
+
+.not-clickable {
+    pointer-events: none;
+    filter: brightness(30%) opacity(70%);
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    filter: brightness(70%) opacity(70%);
+}
+
+.clickable:active {
+    filter: brightness(50%) opacity(50%);
+}
+
+.page {
+    position: relative;
+    margin: auto;
+    width: 500px;
+}
+
+.page__content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 800px;
+    display: flex;
+    align-items: center;
+}
+
+.page__card {
+    display: flex;
+    align-items: center;
+    width: 450px;
+    height: 50px;
+}
+
 .menu {
     display: grid;
     z-index: 2;
@@ -15,15 +58,9 @@
     right: 10px;
 }
 
-.menu-button {
-    flex: 0 0 40px;
-    height: 40px;
-}
-
-.randomizer {
-    position: relative;
-    margin: auto;
-    width: 500px;
+.turn-pages {
+    display: flex;
+    align-items: center;
 }
 
 .randomizer__head {
@@ -31,7 +68,7 @@
     align-items: center;
     width: 450px;
     height: 50px;
-    margin: 50px 0;
+    margin-bottom: 50px;
 }
 
 .randomizer__checkbox {
@@ -47,21 +84,12 @@
 }
 
 .randomizer__meal-button {
-    flex: 0 0 40px;
-    height: 40px;
     margin: 0 10px;
 }
 
 .randomizer__container {
     display: grid;
     grid-gap: 50px;
-}
-
-.randomizer-card {
-    display: flex;
-    align-items: center;
-    width: 450px;
-    height: 50px;
 }
 
 .randomizer-card__weekday {
@@ -98,8 +126,6 @@
 }
 
 .meals-card__button {
-    flex: 0 0 40px;
-    height: 40px;
     margin-left: 10px;
 }
 
@@ -119,18 +145,6 @@
 .dialog {
     margin: auto;
     width: 450px;
-}
-
-.not-clickable {
-    pointer-events: none;
-}
-
-.clickable {
-    cursor: pointer;
-}
-
-.clickable:hover {
-    filter: invert(40%);
 }
 
 .file-picker {

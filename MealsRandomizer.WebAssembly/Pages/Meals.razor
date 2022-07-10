@@ -1,10 +1,7 @@
 ﻿@page "/Meals"
 <RadzenCard class="dialog">
     <h2>Meals</h2>
-    <img class="meals-card__button clickable"
-         src="images/plus.png"
-         alt="plus.png"
-         @onclick="AddMeal" />
+    <IconButton Class="meals-card__button" ImageName="plus.png" Click="AddMeal" />
     <div class="meals__container">
         @foreach (var meal in _mealsSelection) {
             <div class="meals-card">
@@ -13,10 +10,7 @@
                                Value="@meal.Name"
                                Placeholder="<Name your Meal>"
                                Change="name => MealChanged(meal.Id, name)" />
-                <img class="meals-card__button clickable"
-                     src="images/minus.png"
-                     alt="minus.png"
-                     @onclick="() => DeleteMeal(meal)" />
+                <IconButton Class="meals-card__button" ImageName="minus.png" Click="() => DeleteMeal(meal)" />
             </div>
         }
     </div>

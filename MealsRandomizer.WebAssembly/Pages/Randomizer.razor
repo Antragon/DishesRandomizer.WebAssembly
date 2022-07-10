@@ -1,39 +1,19 @@
-﻿@page "/randomizer"
+﻿@page "/Randomizer"
 
-<RadzenCard class="randomizer">
-    <div class="randomizer-card">
-        <h2 class="flexible-space">Planned Meals</h2>
-        <img class="menu-button clickable"
-             src="images/menu_black.png"
-             alt="menu_black.png"
-             @onclick="() => _displayMenu = true" />
-    </div>
-    @if (_displayMenu) {
-        <MenuComponent />
-        <div class="overlay" @onclick="() => _displayMenu = false"></div>
-    }
+<div>
     <div class="randomizer__head">
         <RadzenCheckBox class="randomizer__checkbox"
                         TValue="bool?"
                         @bind-value="@_randomize"
                         Change="UpdateAllCheckboxes" />
-        <img class="randomizer__dice @(_dice.Clickable ? "clickable" : "not-clickable")"
-             src="images/dice_black.png"
-             alt="dice_black.png"
-             @onclick="ShuffleAll"
-             style="transform: rotate(@(_dice.Rotation)deg);" />
-        <div class="flexible-space"></div>
-        <img class="randomizer__meal-button clickable"
-             src="images/edit-list.png"
-             alt="edit-list.png"
-             @onclick="() => _displayMeals = true" />
-        <div class="fixed-space"></div>
+        <DiceComponent Dice="_dice" Click="ShuffleAll" />
+        <span class="flexible-space"></span>
+        <IconButton Class="randomizer__meal-button" ImageName="edit-list.png" Click="() => _displayMeals = true" />
+        <span class="fixed-space"></span>
     </div>
     <div class="randomizer__container">
         @foreach (var day in Enum.GetValues<Day>()) {
-            <RandomizerCard
-                @ref="CardRef"
-                Day="day" />
+            <RandomizerCard @ref="CardRef" Day="day" />
         }
     </div>
     @if (_displayMeals) {
@@ -44,4 +24,4 @@
             </RadzenCard>
         </div>
     }
-</RadzenCard>
+</div>

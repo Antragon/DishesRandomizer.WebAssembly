@@ -1,0 +1,44 @@
+﻿<RadzenCard class="page">
+    <div class="page__card">
+        <h2 class="flexible-space">
+            @switch (_currentPage) {
+                case Page.Randomizer:
+                    <span>Planned Meals</span>
+                    break;
+                case Page.Ingredients:
+                    <span>Ingredients</span>
+                    break;
+                case Page.GroceryList:
+                    <span>Grocery List</span>
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        </h2>
+        <IconButton ImageName="menu_black.png" Click="() => _displayMenu = true" />
+    </div>
+    @if (_displayMenu) {
+        <MenuComponent />
+        <div class="overlay" @onclick="() => _displayMenu = false"></div>
+    }
+
+    <div class="page__content">
+        @switch (_currentPage) {
+            case Page.Randomizer:
+                <Randomizer />
+                break;
+            case Page.Ingredients:
+                break;
+            case Page.GroceryList:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    </div>
+
+    <div class="turn-pages">
+        <IconButton ImageName="previous.png" Click="Previous" Clickable="_currentPage > _firstPage" />
+        <span class="flexible-space"></span>
+        <IconButton ImageName="next.png" Click="Next" Clickable="_currentPage < _lastPage" />
+    </div>
+</RadzenCard>
