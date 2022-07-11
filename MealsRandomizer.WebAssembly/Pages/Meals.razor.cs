@@ -1,13 +1,15 @@
 ﻿namespace MealsRandomizer.WebAssembly.Pages;
 
+using Controllers;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using Radzen.Blazor;
 
 public partial class Meals {
+    private const int _pageSize = 7;
+    
     private readonly List<Meal> _mealsSelection = new();
     private readonly List<RadzenTextBox> _textBoxes = new();
-    private readonly int _pageSize = 7;
 
     private RadzenPager? _pager;
     private int _count;

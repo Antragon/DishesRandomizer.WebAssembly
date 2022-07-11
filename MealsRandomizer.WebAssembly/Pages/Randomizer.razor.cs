@@ -1,6 +1,7 @@
 ﻿namespace MealsRandomizer.WebAssembly.Pages;
 
 using Components;
+using Controllers;
 using Microsoft.AspNetCore.Components;
 using Models;
 using MoreLinq;

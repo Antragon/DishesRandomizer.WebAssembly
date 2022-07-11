@@ -1,20 +1,20 @@
 ﻿@page "/Meals"
 <RadzenCard class="dialog">
     <h2>Meals</h2>
-    <IconButton Class="meals-card__button" ImageName="plus.png" Click="AddMeal" />
-    <div class="meals__container">
+    <IconButton Class="dialog-card__button" ImageName="plus.png" Click="AddMeal" />
+    <div class="dialog__container">
         @foreach (var meal in _mealsSelection) {
-            <div class="meals-card">
-                <RadzenTextBox class="meals-card__meal"
+            <div class="dialog-card">
+                <RadzenTextBox class="dialog-card__value"
                                @ref="TextBoxRef"
                                Value="@meal.Name"
-                               Placeholder="<Name your Meal>"
+                               Placeholder="<Meal>"
                                Change="name => MealChanged(meal.Id, name)" />
-                <IconButton Class="meals-card__button" ImageName="minus.png" Click="() => DeleteMeal(meal)" />
+                <IconButton Class="dialog-card__button" ImageName="minus.png" Click="() => DeleteMeal(meal)" />
             </div>
         }
     </div>
-    <RadzenPager class="meals__pager"
+    <RadzenPager class="dialog__pager"
                  @ref="_pager"
                  Count="_count"
                  PageSize="_pageSize"

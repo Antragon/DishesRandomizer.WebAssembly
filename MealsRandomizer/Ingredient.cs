@@ -1,16 +1,15 @@
 ﻿namespace MealsRandomizer;
 
-public record Meal(Guid Id, string Name) : IComparable<Meal> {
+public record Ingredient(Guid Id, string Name) : IComparable<Ingredient> {
     public string Name { get; set; } = Name;
-    public HashSet<Guid> Ingredients { get; } = new();
 
     public override string ToString() {
         return Name;
     }
 
-    public int CompareTo(Meal? other) {
+    public int CompareTo(Ingredient? other) {
         if (ReferenceEquals(this, other)) return 0;
         if (ReferenceEquals(null, other)) return 1;
-        return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
+        return string.Compare(Name, other.Name, StringComparison.Ordinal);
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace MealsRandomizer.WebAssembly.Components;
 
 using System.Text.Json;
+using Controllers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;

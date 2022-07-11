@@ -1,0 +1,16 @@
+﻿@page "/IngredientsAssignment"
+<div>
+    <div class="randomizer__head">
+        <span class="flexible-space"></span>
+        <IconButton ImageName="edit-list.png" Click="() => _displayIngredients = true" />
+        <span class="fixed-space"></span>
+    </div>
+    @if (_displayIngredients) {
+        <div class="overlay">
+            <Ingredients />
+            <RadzenCard class="dialog">
+                <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="() => _displayIngredients = false" />
+            </RadzenCard>
+        </div>
+    }
+</div>
