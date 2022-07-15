@@ -26,7 +26,7 @@ public partial class Meals {
     }
 
     private async Task AddMeal() {
-        var meal = new Meal(Guid.NewGuid(), string.Empty);
+        var meal = new Meal(Guid.NewGuid(), string.Empty, null);
         CookbookController.AddMeal(meal);
         _mealsSelection.Insert(0, meal);
         if (_mealsSelection.Count > _pageSize) {

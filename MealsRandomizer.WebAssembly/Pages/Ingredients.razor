@@ -2,7 +2,7 @@
 <RadzenCard class="dialog">
     <h2>Ingredients</h2>
     <IconButton Class="dialog-card__button" ImageName="plus.png" Click="AddIngredient" />
-    <div class="dialog__container">
+    <div class="list__container">
         @foreach (var ingredient in _ingredientsSelection) {
             <div class="dialog-card">
                 <RadzenTextBox class="dialog-card__value"

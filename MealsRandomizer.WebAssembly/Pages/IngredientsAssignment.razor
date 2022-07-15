@@ -1,9 +1,14 @@
 ﻿@page "/IngredientsAssignment"
 <div>
-    <div class="randomizer__head">
+    <div class="head-with-list">
         <span class="flexible-space"></span>
         <IconButton ImageName="edit-list.png" Click="() => _displayIngredients = true" />
         <span class="fixed-space"></span>
+    </div>
+    <div class="cards-container">
+        @foreach (var day in Enum.GetValues<Day>()) {
+            <IngredientsCard Day="day" />
+        }
     </div>
     @if (_displayIngredients) {
         <div class="overlay">

@@ -27,7 +27,8 @@ public partial class MenuComponent {
             var cookbook = JsonSerializer.Deserialize<Cookbook>(content)!;
             CookbookController.Cookbook = cookbook;
             await ShowImportSuccessful();
-        } catch (Exception) {
+        } catch (Exception ex) {
+            Console.WriteLine(ex);
             await ShowImportFailed();
         }
     }
