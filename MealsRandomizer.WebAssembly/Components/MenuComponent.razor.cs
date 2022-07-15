@@ -1,6 +1,7 @@
 ﻿namespace MealsRandomizer.WebAssembly.Components;
 
 using System.Text.Json;
+using Controllers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -26,7 +27,8 @@ public partial class MenuComponent {
             var cookbook = JsonSerializer.Deserialize<Cookbook>(content)!;
             CookbookController.Cookbook = cookbook;
             await ShowImportSuccessful();
-        } catch (Exception) {
+        } catch (Exception ex) {
+            Console.WriteLine(ex);
             await ShowImportFailed();
         }
     }

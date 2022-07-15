@@ -1,0 +1,21 @@
+﻿@page "/IngredientsAssignment"
+<div>
+    <div class="head-with-list">
+        <span class="flexible-space"></span>
+        <IconButton ImageName="edit-list.png" Click="() => _displayIngredients = true" />
+        <span class="fixed-space"></span>
+    </div>
+    <div class="cards-container">
+        @foreach (var day in Enum.GetValues<Day>()) {
+            <IngredientsCard Day="day" />
+        }
+    </div>
+    @if (_displayIngredients) {
+        <div class="overlay">
+            <Ingredients />
+            <RadzenCard class="dialog">
+                <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="() => _displayIngredients = false" />
+            </RadzenCard>
+        </div>
+    }
+</div>

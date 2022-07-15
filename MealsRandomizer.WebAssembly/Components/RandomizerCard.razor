@@ -4,7 +4,7 @@
                     @bind-Value="@Randomize"
                     Change="_randomizeSubject.OnNext" />
     <DiceComponent Dice="Dice" Click="Shuffle" />
-    <h3 class="randomizer-card__weekday">@($"{Day}:")</h3>
+    <div class="card__weekday">@($"{Day}:")</div>
     <RadzenDropDown class="randomizer-card__meal-selection"
                     TValue="Meal"
                     Value="@PlannedMeal"

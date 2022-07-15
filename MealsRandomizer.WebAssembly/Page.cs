@@ -2,6 +2,6 @@
 
 public enum Page {
     Randomizer,
-    Ingredients,
+    IngredientsAssignment,
     GroceryList
 }

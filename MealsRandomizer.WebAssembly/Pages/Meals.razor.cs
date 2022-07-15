@@ -1,13 +1,15 @@
 ﻿namespace MealsRandomizer.WebAssembly.Pages;
 
+using Controllers;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using Radzen.Blazor;
 
 public partial class Meals {
+    private const int _pageSize = 7;
+    
     private readonly List<Meal> _mealsSelection = new();
     private readonly List<RadzenTextBox> _textBoxes = new();
-    private readonly int _pageSize = 7;
 
     private RadzenPager? _pager;
     private int _count;
@@ -24,7 +26,7 @@ public partial class Meals {
     }
 
     private async Task AddMeal() {
-        var meal = new Meal(Guid.NewGuid(), string.Empty);
+        var meal = new Meal(Guid.NewGuid(), string.Empty, null);
         CookbookController.AddMeal(meal);
         _mealsSelection.Insert(0, meal);
         if (_mealsSelection.Count > _pageSize) {

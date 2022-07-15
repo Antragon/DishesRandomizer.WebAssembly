@@ -1,0 +1,16 @@
+﻿@page "/GroceryList"
+
+<div>
+    @foreach (var assignment in _assignments) {
+        <div class="grocery-list__item">
+            <div class="fixed-space"></div>
+            <div class="grocery-list__ingredient">
+                @assignment.Ingredient
+            </div>
+            <div class="grocery-list__amount">
+                @assignment.Amount
+            </div>
+            <div class="fixed-space"></div>
+        </div>
+    }
+</div>

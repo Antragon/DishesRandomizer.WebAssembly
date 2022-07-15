@@ -1,0 +1,23 @@
+﻿@page "/Ingredients"
+<RadzenCard class="dialog">
+    <h2>Ingredients</h2>
+    <IconButton Class="dialog-card__button" ImageName="plus.png" Click="AddIngredient" />
+    <div class="list__container">
+        @foreach (var ingredient in _ingredientsSelection) {
+            <div class="dialog-card">
+                <RadzenTextBox class="dialog-card__value"
+                               @ref="TextBoxRef"
+                               Value="@ingredient.Name"
+                               Placeholder="<Ingredient (Unit)>"
+                               Change="name => IngredientChanged(ingredient.Id, name)" />
+                <IconButton Class="dialog-card__button" ImageName="minus.png" Click="() => DeleteIngredient(ingredient)" />
+            </div>
+        }
+    </div>
+    <RadzenPager class="dialog__pager"
+                 @ref="_pager"
+                 Count="_count"
+                 PageSize="_pageSize"
+                 PageNumbersCount="5"
+                 PageChanged="PageChanged" />
+</RadzenCard>

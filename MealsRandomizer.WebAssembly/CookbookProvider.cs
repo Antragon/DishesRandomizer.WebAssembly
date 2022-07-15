@@ -2,6 +2,7 @@
 
 using System.Text.Json;
 using Blazored.LocalStorage;
+using Controllers;
 
 public class CookbookProvider {
     private const string _storageKey = "cookbook";
@@ -27,7 +28,7 @@ public class CookbookProvider {
         Cookbook? cookbook = null;
         try {
             cookbook = await _localStorageService.GetItemAsync<Cookbook?>(_storageKey);
-        } catch (JsonException) {
+        } catch (Exception e) when(e is JsonException or ArgumentNullException) {
             Console.WriteLine("Downwards compatibility issue. Creating new cookbook.");
         }
 

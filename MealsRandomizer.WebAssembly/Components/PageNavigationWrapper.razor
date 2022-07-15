@@ -5,8 +5,8 @@
                 case Page.Randomizer:
                     <span>Planned Meals</span>
                     break;
-                case Page.Ingredients:
-                    <span>Ingredients</span>
+                case Page.IngredientsAssignment:
+                    <span>Ingredients Assignment</span>
                     break;
                 case Page.GroceryList:
                     <span>Grocery List</span>
@@ -27,9 +27,11 @@
             case Page.Randomizer:
                 <Randomizer />
                 break;
-            case Page.Ingredients:
+            case Page.IngredientsAssignment:
+                <IngredientsAssignment />
                 break;
             case Page.GroceryList:
+                <GroceryList />
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
