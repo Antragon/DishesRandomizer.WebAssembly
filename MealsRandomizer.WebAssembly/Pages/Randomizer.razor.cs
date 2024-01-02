@@ -13,8 +13,6 @@ public partial class Randomizer {
 
     private bool? _randomize = true;
 
-    private bool _displayMeals;
-
     [Inject] private DialogService DialogService { get; set; } = null!;
 
     [CascadingParameter] private CookbookController CookbookController { get; set; } = null!;

@@ -7,21 +7,10 @@
                         @bind-value="@_randomize"
                         Change="UpdateAllCheckboxes" />
         <DiceComponent Dice="_dice" Click="ShuffleAll" />
-        <span class="flexible-space"></span>
-        <IconButton ImageName="edit-list.png" Click="() => _displayMeals = true" />
-        <span class="fixed-space"></span>
     </div>
     <div class="cards-container">
         @foreach (var day in Enum.GetValues<Day>()) {
             <RandomizerCard @ref="CardRef" Day="day" />
         }
     </div>
-    @if (_displayMeals) {
-        <div class="overlay">
-            <Meals />
-            <RadzenCard class="dialog">
-                <RadzenButton Text="Done" ButtonStyle="@ButtonStyle.Secondary" Click="() => _displayMeals = false" />
-            </RadzenCard>
-        </div>
-    }
 </div>

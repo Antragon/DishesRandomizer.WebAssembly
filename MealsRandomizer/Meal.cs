@@ -1,8 +1,9 @@
 ﻿namespace MealsRandomizer;
 
-public record Meal(Guid Id, string Name, Dictionary<Guid, decimal?>? Ingredients) : IComparable<Meal> {
+public record Meal(Guid Id, string Name, List<Ingredient>? Ingredients) : IComparable<Meal> {
+    public Guid Id { get; set; } = Id;
     public string Name { get; set; } = Name;
-    public Dictionary<Guid, decimal?> Ingredients { get; } = Ingredients ?? new Dictionary<Guid, decimal?>();
+    public List<Ingredient> Ingredients { get; } = Ingredients ?? new List<Ingredient>();
 
     public override string ToString() {
         return Name;

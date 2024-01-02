@@ -1,7 +1,8 @@
 ﻿namespace MealsRandomizer.WebAssembly; 
 
 public enum Page {
+    Meals,
     Randomizer,
-    IngredientsAssignment,
-    GroceryList
+    CheckIngredients,
+    GroceryList,
 }

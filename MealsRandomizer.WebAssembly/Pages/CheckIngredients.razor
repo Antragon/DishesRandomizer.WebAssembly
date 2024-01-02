@@ -1,0 +1,8 @@
+﻿@page "/CheckIngredients"
+<div>
+    <div class="cards-container">
+        @foreach (var day in Enum.GetValues<Day>()) {
+            <IngredientsCard Day="day" />
+        }
+    </div>
+</div>

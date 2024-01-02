@@ -14,10 +14,9 @@ public partial class GroceryList {
             .Select(CookbookController.GetPlannedMeal)
             .OfType<Meal>()
             .SelectMany(m => m.Ingredients)
-            .GroupBy(a => a.Key)
-            .Select(g => (g.Key, g.Sum(a => a.Value)))
-            .Select(a => (CookbookController.Cookbook.Ingredients[a.Key].Name, a.Item2))
-            .OrderBy(a => a.Name);
+            .GroupBy(a => a.Name)
+            .Select(g => (g.Key, g.Sum(a => a.Amount)))
+            .OrderBy(a => a.Key);
         _assignments.AddRange(assignments);
     }
 }

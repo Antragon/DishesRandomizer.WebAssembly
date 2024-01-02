@@ -1,34 +1,15 @@
 ﻿<div>
-    <div class="page__card @(Meal != null ? "clickable" : "not-clickable")" @onclick="() => _expand = !_expand">
-        <IconButton ImageName="@(_expand ? "arrow-down_black.png" : "arrow-right_black.png")" Clickable="false" />
-        <div class="fixed-space"></div>
-        <div class="card__weekday">@Day</div>
-        <div class="ingredients-card__meal">@(CookbookController.GetPlannedMeal(Day)?.ToString() ?? "n/A"):</div>
+    <div class="ingredients-card">
+        <p class="card__weekday">@Day:</p>
+        <p class="ingredients-card__meal">@(Meal?.Name ?? "n/A")</p>
+        <IconButton Class="edit-button" ImageName="edit.png" Click="OpenMealEditor" />
     </div>
-    @if (_expand) {
-        <div class="dialog__container">
-            @foreach (var assignment in _selection) {
-                <div class="dialog-card">
-                    <RadzenDropDown class="ingredients-card__selection"
-                                    TValue="Ingredient"
-                                    Value="assignment.Ingredient"
-                                    Data="CookbookController.GetIngredients()"
-                                    Placeholder="Select..."
-                                    AllowFiltering="true"
-                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                    AllowClear="true"
-                                    ValueChanged="ingredient => AssignIngredient(assignment, ingredient)" />
-                    <RadzenNumeric class="ingredients-card__amount"
-                                   TValue="decimal?"
-                                   Value="assignment.Amount"
-                                   Min="0"
-                                   Max="99999.9m"
-                                   Step="0.1"
-                                   Change="amount => AssignAmount(assignment, amount)" />
-                    <IconButton Class="dialog-card__button" ImageName="minus.png" Click="() => Delete(assignment)" />
-                </div>
-            }
-        </div>
-        <IconButton Class="dialog-card__button" ImageName="plus.png" Click="Add" />
-    }
+    <div>
+        @foreach (var ingredient in Ingredients) {
+            <div class="ingredients-card__ingredient">
+                <p class="ingredients-card__ingredient__name">@ingredient.Name</p>
+                <p class="ingredients-card__ingredient__amount">@ingredient.Amount</p>
+            </div>
+        }
+    </div>
 </div>

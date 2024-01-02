@@ -1,0 +1,57 @@
+﻿@page "/MealEditor"
+<div class="dialog">
+    <div class="dialog-card">
+        <RadzenTextBox
+            class="dialog-card__value"
+            @bind-Value="Meal.Name"
+            Placeholder="<Meal>" />
+    </div>
+    <h4>Ingredients</h4>
+    <div class="meal-editor__ingredients">
+        @foreach (var ingredient in Meal.Ingredients) {
+            <div class="dialog-card">
+                <RadzenAutoComplete
+                    class="meal-editor__ingredient__name"
+                    @ref="_lastAutocomplete"
+                    @bind-Value="ingredient.Name"
+                    Data="_ingredients"
+                    FilterDelay="1"
+                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                    Placeholder="<Ingredient (Unit)>" />
+                <RadzenNumeric
+                    class=meal-editor__ingredient__amount
+                    @bind-Value=ingredient.Amount
+                    Min="0"
+                    Max="99999.9m"
+                    Step="0.1" />
+                <IconButton
+                    Class="remove-button"
+                    ImageName="minus.png"
+                    Click="() => Meal.Ingredients.Remove(ingredient)" />
+            </div>
+        }
+        <div class="dialog-card">
+            <IconButton
+                Class="add-button"
+                ImageName="plus.png"
+                Click="AddIngredient" />
+        </div>
+    </div>
+    <div class="dialog-card">
+        <div class="fixed-space"></div>
+        <RadzenButton
+            class="dialog-card__value"
+            Text="Save"
+            ButtonStyle="@ButtonStyle.Secondary"
+            Click="Save" />
+        @if (!IsNew) {
+            <div class="fixed-space"></div>
+            <RadzenButton
+                class="dialog-card__value"
+                Text="Save as new"
+                ButtonStyle="@ButtonStyle.Secondary"
+                Click="SaveAsNew" />
+        }
+        <div class="fixed-space"></div>
+    </div>
+</div>

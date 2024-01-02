@@ -6,53 +6,42 @@ using Radzen;
 using Radzen.Blazor;
 
 public partial class Meals {
-    private const int _pageSize = 7;
-    
-    private readonly List<Meal> _mealsSelection = new();
-    private readonly List<RadzenTextBox> _textBoxes = new();
+    private const int _pageSize = 10;
 
-    private RadzenPager? _pager;
-    private int _count;
+    private readonly List<Meal> _mealsSelection = new();
+
+    private RadzenPager _pager = null!;
+
+    [Inject] private DialogService DialogService { get; set; } = null!;
 
     [CascadingParameter] private CookbookController CookbookController { get; set; } = null!;
 
-    private RadzenTextBox TextBoxRef {
-        set => _textBoxes.Add(value);
-    }
-
     protected override void OnInitialized() {
         SetMealsSelection(0, _pageSize);
-        _count = CookbookController.GetMeals().Count();
     }
 
-    private async Task AddMeal() {
-        var meal = new Meal(Guid.NewGuid(), string.Empty, null);
-        CookbookController.AddMeal(meal);
-        _mealsSelection.Insert(0, meal);
-        if (_mealsSelection.Count > _pageSize) {
-            _mealsSelection.RemoveAt(_pageSize);
-        }
-
-        _count++;
-        if (_pager != null) {
-            await _pager.FirstPage();
-        }
-
-        var textBox = _textBoxes.FirstOrDefault();
-        if (textBox != null) {
-            await textBox.Element.FocusAsync();
-        }
+    private Task AddMealAsync() {
+        var newMeal = new Meal(Guid.NewGuid(), string.Empty, null);
+        return OpenMealEditorAsync(newMeal, true);
     }
 
-    private Task DeleteMeal(Meal meal) {
-        CookbookController.DeleteMeal(meal.Id);
-        _mealsSelection.Remove(meal);
-        _count--;
-        return _pager?.GoToPage(_pager.CurrentPage, true) ?? Task.CompletedTask;
+    private async Task OpenMealEditorAsync(Meal meal, bool isNew = false) {
+        var parameters = new Dictionary<string, object> {
+            [nameof(MealEditor.Meal)] = meal.Clone(),
+            [nameof(MealEditor.IsNew)] = isNew
+        };
+        var dialogOptions = new DialogOptions { Style = "min-height:auto;min-width:auto;width:auto" };
+        await DialogService.OpenAsync<MealEditor>(nameof(Meal), parameters, dialogOptions);
+        await _pager.GoToPage(_pager.CurrentPage, true);
     }
 
-    private void MealChanged(Guid id, string name) {
-        CookbookController.SetMealName(id, name);
+    private async Task DeleteMealAsync(Meal meal) {
+        var confirmOptions = new ConfirmOptions { OkButtonText = "Yes", CancelButtonText = "Cancel" };
+        var result = await DialogService.Confirm("Are you sure?", "Delete Meal", confirmOptions);
+        if (result.HasValue && result.Value) {
+            CookbookController.DeleteMeal(meal.Id);
+            await _pager.GoToPage(_pager.CurrentPage, true);
+        }
     }
 
     private void PageChanged(PagerEventArgs args) {
@@ -62,7 +51,7 @@ public partial class Meals {
     }
 
     private void SetMealsSelection(int skip, int take) {
-        var meals = CookbookController.GetMeals().OrderBy(meal => meal);
+        var meals = CookbookController.Cookbook.Meals.Values.OrderBy(meal => meal);
         _mealsSelection.Clear();
         _mealsSelection.AddRange(meals.Skip(skip).Take(take));
     }

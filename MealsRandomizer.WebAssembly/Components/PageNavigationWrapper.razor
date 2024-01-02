@@ -1,34 +1,30 @@
 ﻿<RadzenCard class="page">
     <div class="page__card">
         <h2 class="flexible-space">
-            @switch (_currentPage) {
-                case Page.Randomizer:
-                    <span>Planned Meals</span>
-                    break;
-                case Page.IngredientsAssignment:
-                    <span>Ingredients Assignment</span>
-                    break;
-                case Page.GroceryList:
-                    <span>Grocery List</span>
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+            @{
+                var title = _currentPage switch {
+                    Page.Meals => "Meals",
+                    Page.Randomizer => "Planned Meals",
+                    Page.CheckIngredients => "Check Ingredients",
+                    Page.GroceryList => "Grocery List",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
+            <span>@title</span>
         </h2>
-        <IconButton ImageName="menu_black.png" Click="() => _displayMenu = true" />
+        <IconButton ImageName="menu_black.png" Click="OpenMenu" />
     </div>
-    @if (_displayMenu) {
-        <MenuComponent />
-        <div class="overlay" @onclick="() => _displayMenu = false"></div>
-    }
 
     <div class="page__content">
         @switch (_currentPage) {
+            case Page.Meals:
+                <Meals />
+                break;
             case Page.Randomizer:
                 <Randomizer />
                 break;
-            case Page.IngredientsAssignment:
-                <IngredientsAssignment />
+            case Page.CheckIngredients:
+                <CheckIngredients />
                 break;
             case Page.GroceryList:
                 <GroceryList />

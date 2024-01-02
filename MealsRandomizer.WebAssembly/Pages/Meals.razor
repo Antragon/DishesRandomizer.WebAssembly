@@ -1,23 +1,20 @@
 ﻿@page "/Meals"
-<RadzenCard class="dialog">
-    <h2>Meals</h2>
-    <IconButton Class="dialog-card__button" ImageName="plus.png" Click="AddMeal" />
-    <div class="dialog__container">
+<div>
+    <IconButton Class="add-button" ImageName="plus.png" Click="AddMealAsync" />
+    <div>
         @foreach (var meal in _mealsSelection) {
-            <div class="dialog-card">
-                <RadzenTextBox class="dialog-card__value"
-                               @ref="TextBoxRef"
-                               Value="@meal.Name"
-                               Placeholder="<Meal>"
-                               Change="name => MealChanged(meal.Id, name)" />
-                <IconButton Class="dialog-card__button" ImageName="minus.png" Click="() => DeleteMeal(meal)" />
+            <div class="meals__meal">
+                <h3 class="meals__meal__label">@meal.Name</h3>
+                <IconButton Class="edit-button" ImageName="edit.png" Click="() => OpenMealEditorAsync(meal)" />
+                <IconButton Class="remove-button" ImageName="minus.png" Click="() => DeleteMealAsync(meal)" />
             </div>
         }
     </div>
-    <RadzenPager class="dialog__pager"
-                 @ref="_pager"
-                 Count="_count"
-                 PageSize="_pageSize"
-                 PageNumbersCount="5"
-                 PageChanged="PageChanged" />
-</RadzenCard>
+    <RadzenPager
+        class="pager"
+        @ref="_pager"
+        Count="CookbookController.Cookbook.Meals.Count"
+        PageSize="_pageSize"
+        PageNumbersCount="6"
+        PageChanged="PageChanged" />
+</div>
