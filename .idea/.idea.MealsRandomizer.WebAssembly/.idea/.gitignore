@@ -2,6 +2,7 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
+/aws.xml
 /contentModel.xml
 /modules.xml
 /projectSettingsUpdater.xml
