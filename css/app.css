@@ -1,4 +1,42 @@
-﻿.cards-container {
+﻿:root {
+    --default-width: 450px;
+    --default-width-with-scrollbar: 440px;
+    --dialog-item-width: 400px;
+    --dialog-width: 420px;
+    --full-width: 500px;
+}
+
+#app {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+.add-button {
+    margin: 10px;
+}
+
+.cards-container {
     display: grid;
     grid-gap: 50px;
 }
@@ -23,23 +61,18 @@
 
 .dialog {
     margin: auto;
-    width: 450px;
-}
-
-.dialog__pager {
-    height: 50px;
-    margin-top: 20px;
+    width: var(--dialog-width);
 }
 
 .dialog-card {
     align-items: center;
     display: flex;
     height: 50px;
-    width: 400px;
+    width: var(--dialog-item-width);
 }
 
-.dialog-card__button {
-    margin-left: 10px;
+.remove-button, .edit-button {
+    margin-left: 20px;
 }
 
 .dialog-card__value {
@@ -71,9 +104,8 @@
 .grocery-list__item {
     align-items: center;
     display: flex;
-    height: 50px;
-    /*margin-bottom: 50px;*/
-    width: 450px;
+    min-height: 32px;
+    width: var(--default-width);
 }
 
 .head-with-list {
@@ -81,7 +113,7 @@
     display: flex;
     height: 50px;
     margin-bottom: 50px;
-    width: 450px;
+    width: var(--default-width);
 }
 
 .icon-button {
@@ -89,18 +121,33 @@
     height: 40px;
 }
 
-.ingredients-card__amount {
-    flex: 0 0 80px;
+.ingredients-card {
+    align-items: center;
+    display: flex;
+    min-height: 50px;
+    width: 90%;
+}
+
+.ingredients-card__ingredient {
+    align-items: center;
+    display: flex;
+    min-height: 4px;
+    width: var(--default-width-with-scrollbar);
+}
+
+.ingredients-card__ingredient__amount {
+    margin-left: 32px;
+    flex: 1
+}
+
+.ingredients-card__ingredient__name {
+    margin-left: 32px;
+    flex: 1
 }
 
 .ingredients-card__meal {
     flex: 2;
     font-size: 1.25rem;
-    margin-bottom: 0.25rem;
-}
-
-.ingredients-card__selection {
-    flex: 4;
 }
 
 .list__container {
@@ -109,13 +156,38 @@
     margin-top: 20px;
 }
 
+.meal-editor__ingredients {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.meal-editor__ingredient__amount {
+    flex: 0 0 80px;
+}
+
+.meal-editor__ingredient__name {
+    flex: 4;
+    margin-left: 16px;
+}
+
+.meals__meal {
+    align-items: center;
+    display: flex;
+    min-height: 64px;
+    width: var(--default-width-with-scrollbar);
+}
+
+.meals__meal__label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .menu {
     display: grid;
     grid-gap: 20px;
-    position: absolute;
     right: 10px;
     width: 200px;
-    z-index: 2;
 }
 
 .not-clickable {
@@ -123,37 +195,29 @@
     pointer-events: none;
 }
 
-.overlay {
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    height: 100%;
-    left: 0;
-    overflow: auto;
-    padding-top: 25px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-}
-
 .page {
     margin: auto;
-    position: relative;
-    width: 500px;
+    width: var(--full-width);
 }
 
 .page__card {
     align-items: center;
     display: flex;
-    height: 50px;
-    width: 450px;
+    min-height: 50px;
+    width: var(--default-width-with-scrollbar);
 }
 
 .page__content {
     display: flex;
     height: 800px;
+    margin: 16px 0;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+.pager {
+    height: 50px;
+    margin-top: 20px;
 }
 
 .randomizer__checkbox {
@@ -184,21 +248,11 @@
     display: flex;
 }
 
-#blazor-error-ui {
-    background: lightyellow;
-    bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-    display: none;
-    left: 0;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
+html, body {
+    height: 100vh;
+    width: 100vw;
 }
 
-#blazor-error-ui .dismiss {
-    cursor: pointer;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.5rem;
+h4 {
+    margin-top: 16px;
 }
